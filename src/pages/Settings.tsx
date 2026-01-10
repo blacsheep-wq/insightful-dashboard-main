@@ -10,7 +10,11 @@ import {
   LogOut, 
   Check, 
   X, 
-  Code2 
+  Code2,
+  Instagram,
+  Twitter,
+  Youtube,
+  Linkedin
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -38,8 +42,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePreferences, DateRange } from '@/contexts/PreferencesContext';
+import { usePlatform } from '@/contexts/PlatformContext';
 
 import { useSearchParams, useLocation } from 'react-router-dom';
+
+import { XIcon } from '@/components/XIcon';
+
+const availablePlatforms = [
+  { id: 'instagram', name: 'Instagram', icon: Instagram, color: 'text-pink-500' },
+  { id: 'twitter', name: 'X (Twitter)', icon: XIcon, color: 'text-zinc-900 dark:text-zinc-50' },
+  { id: 'youtube', name: 'YouTube', icon: Youtube, color: 'text-red-500' },
+  { id: 'linkedin', name: 'LinkedIn', icon: Linkedin, color: 'text-blue-600' },
+];
 
 export default function Settings() {
   const [searchParams] = useSearchParams();
@@ -53,10 +67,6 @@ export default function Settings() {
   useEffect(() => {
     if (location.state && (location.state as any).showUpgradePopup) {
        setShowAddAccountDialog(true);
-       // Optional: Clear state so it doesn't show on refresh? 
-       // For a simple app, checking location.state is enough as it clears on refresh usually or navigating away.
-       // Actually, React Router state persists on refresh in some histories, but usually fine for this "one-off" action.
-       // Ensuring tab is billing is handled by URL param, but we can enforce it here too:
        if (activeTab !== 'billing') setActiveTab('billing');
     }
   }, [location.state, activeTab]);
@@ -65,8 +75,9 @@ export default function Settings() {
     dateRange, setDateRange, 
     includeRetweets, setIncludeRetweets, 
     primaryPlatform, setPrimaryPlatform,
-    connectedPlatforms, setConnectedPlatforms
   } = usePreferences();
+
+  const { isConnected } = usePlatform();
 
   // Mock State
   const [user, setUser] = useState({
@@ -81,20 +92,12 @@ export default function Settings() {
     systemUpdates: false,
   });
 
-  // connectedPlatforms moved to Context
-
   const handleSave = () => {
     setLoading(true);
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  };
-
-  const togglePlatform = (id: string) => {
-    setConnectedPlatforms(prev => prev.map(p => 
-      p.id === id ? { ...p, connected: !p.connected } : p
-    ));
   };
 
   const navItems = [
@@ -223,38 +226,33 @@ export default function Settings() {
               </Dialog>
 
               <div className="grid gap-4">
-                {connectedPlatforms.map((platform) => (
-                  <Card key={platform.id} className="flex flex-row items-center justify-between p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-2xl">
-                        {platform.icon}
+                {availablePlatforms.map((platform) => {
+                  const connected = isConnected(platform.id as any);
+                  return (
+                    <Card key={platform.id} className="flex flex-row items-center justify-between p-6">
+                      <div className="flex items-center gap-4">
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-full bg-muted text-2xl ${platform.color}`}>
+                          <platform.icon className="h-6 w-6" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-lg">{platform.name}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            {connected ? 'Connected and syncing' : 'Not connected'}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-lg">{platform.name}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {platform.connected ? 'Connected and syncing' : 'Not connected'}
-                        </p>
+                      <div className="flex items-center gap-4">
+                        {connected ? (
+                          <Badge variant="default" className="bg-green-500/10 text-green-600 hover:bg-green-500/20 border-green-500/20">
+                            <Check className="h-3 w-3 mr-1" /> Connected
+                          </Badge>
+                        ) : (
+                          <Badge variant="secondary">Disconnected</Badge>
+                        )}
                       </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      {platform.connected ? (
-                        <Badge variant="default" className="bg-green-500/10 text-green-600 hover:bg-green-500/20 border-green-500/20">
-                          <Check className="h-3 w-3 mr-1" /> Connected
-                        </Badge>
-                      ) : (
-                        <Badge variant="secondary">Disconnected</Badge>
-                      )}
-                      
-                      <Button 
-                        variant={platform.connected ? "destructive" : "default"}
-                        size="sm"
-                        onClick={() => togglePlatform(platform.id)}
-                      >
-                        {platform.connected ? 'Disconnect' : 'Connect'}
-                      </Button>
-                    </div>
-                  </Card>
-                ))}
+                    </Card>
+                  );
+                })}
               </div>
             </div>
           )}

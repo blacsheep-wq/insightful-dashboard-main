@@ -34,9 +34,11 @@ const navItems = [
   { icon: Settings, label: 'Settings', path: '/dashboard/settings' },
 ];
 
+import { XIcon } from '@/components/XIcon';
+
 const platforms: { id: Platform; icon: React.ElementType; label: string; color: string }[] = [
   { id: 'instagram', icon: Instagram, label: 'Instagram', color: 'text-coral' },
-  { id: 'twitter', icon: Twitter, label: 'X (Twitter)', color: 'text-foreground' },
+  { id: 'twitter', icon: XIcon, label: 'X (Twitter)', color: 'text-foreground' },
   { id: 'youtube', icon: Youtube, label: 'YouTube', color: 'text-destructive' },
   { id: 'linkedin', icon: Linkedin, label: 'LinkedIn', color: 'text-ocean' },
 ];

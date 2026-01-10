@@ -12,9 +12,11 @@ import { usePlatform, Platform } from '@/contexts/PlatformContext';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from "react";
 
+import { XIcon } from '@/components/XIcon'; // Import XIcon
+
 const platforms: { id: Platform; name: string; icon: any; color: string }[] = [
   { id: 'instagram', name: 'Instagram', icon: Instagram, color: 'text-pink-500' },
-  { id: 'twitter', name: 'X (Twitter)', icon: Twitter, color: 'text-zinc-900 dark:text-zinc-50' },
+  { id: 'twitter', name: 'X (Twitter)', icon: XIcon, color: 'text-zinc-900 dark:text-zinc-50' },
   { id: 'youtube', name: 'YouTube', icon: Youtube, color: 'text-red-500' },
   { id: 'linkedin', name: 'LinkedIn', icon: Linkedin, color: 'text-blue-600' },
 ];
