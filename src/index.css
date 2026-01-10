@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Eye-comfort light theme - warm creams and soft grays */
+    --background: 40 33% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 40 20% 99%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 40 20% 99%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 142 26% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 210 30% 95%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 142 26% 45%;
+
+    --radius: 0.75rem;
+
+    /* Custom colors */
+    --sage: 142 26% 56%;
+    --sage-light: 142 26% 92%;
+    --ocean: 207 44% 49%;
+    --ocean-light: 207 44% 92%;
+    --coral: 15 55% 65%;
+    --coral-light: 15 55% 92%;
+    --lavender: 262 35% 60%;
+    --lavender-light: 262 35% 92%;
+    --gold: 40 60% 55%;
+    --gold-light: 40 60% 92%;
+
+    /* Chart colors */
+    --chart-1: 142 26% 45%;
+    --chart-2: 207 44% 49%;
+    --chart-3: 15 55% 65%;
+    --chart-4: 262 35% 60%;
+    --chart-5: 40 60% 55%;
+
+    /* Sidebar */
+    --sidebar-background: 40 20% 97%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 142 26% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 142 26% 94%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 142 26% 45%;
+  }
+
+  .dark {
+    /* Eye-comfort dark theme - deep slates, no pure black */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 142 35% 55%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 217 33% 15%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 96%;
+
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 210 40% 96%;
+
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 142 35% 55%;
+
+    /* Custom colors dark mode */
+    --sage: 142 35% 55%;
+    --sage-light: 142 26% 15%;
+    --ocean: 207 55% 55%;
+    --ocean-light: 207 44% 15%;
+    --coral: 15 65% 60%;
+    --coral-light: 15 55% 15%;
+    --lavender: 262 45% 65%;
+    --lavender-light: 262 35% 15%;
+    --gold: 40 70% 55%;
+    --gold-light: 40 60% 15%;
+
+    /* Chart colors dark */
+    --chart-1: 142 35% 55%;
+    --chart-2: 207 55% 55%;
+    --chart-3: 15 65% 60%;
+    --chart-4: 262 45% 65%;
+    --chart-5: 40 70% 55%;
+
+    /* Sidebar dark */
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 142 35% 55%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 217 33% 15%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 217 33% 18%;
+    --sidebar-ring: 142 35% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  html {
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50 shadow-sm;
+  }
+
+  .metric-card {
+    @apply bg-card rounded-xl p-5 border border-border/50 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/20;
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .sidebar-item-active {
+    @apply bg-primary/10 text-primary font-medium;
+  }
+}
