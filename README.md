@@ -64,7 +64,7 @@ Follow these steps to run SocialPulse locally:
     ```env
     PORT=3001
     Database_URI=src/data/mockData.ts
-    GEMINI_API=AIzaSyA4Tn1a6_uUx5-W1BCzARGq7z8L0dNc-oY
+    GEMINI_API=AIzaSyA4Tn1a6_uUx5-W1BCzARGq7z8L0dNc-Y
     ```
 
 4.  **Run the App**
